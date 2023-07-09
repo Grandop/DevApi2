@@ -1,13 +1,10 @@
-const livroNegocio = require("../negocio/livro_negocio")
+const persNegocio = require("../negocio/pers_negocio")
 
 async function inserir(req, res) {    
-    //Obtem os dados request
-    const livro = req.body
-    //Trata a funcionalidade de negocio
+    const pers = req.body
     try { 
-        const livroInserido = await livroNegocio.inserir(livro)
-        //Gera o response adequadamente  
-        res.status(201).json(livroInserido);
+        const persInserido = await persNegocio.inserir(pers)
+        res.status(201).json(persInserido);
     } catch (err) {
         if (err.status) {
             res.status(err.status).json(err)
@@ -18,24 +15,19 @@ async function inserir(req, res) {
 }
 
 async function listar(req, res) {    
-    //Obtem os dados request
-    //Trata a funcionalidade de negocio
     try {
-        const listaLivros = await livroNegocio.listar()
-        res.status(200).json(listaLivros)
+        const listaPers = await persNegocio.listar()
+        res.status(200).json(listaPers)
     } catch(err) {
         res.status(500).json({erro: err})
     }
 }
 
 async function buscarPorId(req, res) {    
-    //Obtem os dados request (e da URI)
     const id = req.params.id;
     try{ 
-        //Trata a funcionalidade de negocio
-        const livro = await livroNegocio.buscarPorId(id)
-        //Gera o response adequadamente  
-        res.json(livro)
+        const pers = await persNegocio.buscarPorId(id)
+        res.json(pers)
     } catch(err) {
         if (err.status) {
             res.status(err.status).json(err)
@@ -46,15 +38,11 @@ async function buscarPorId(req, res) {
 }
 
 async function atualizar(req, res) {    
-    //Obtem os dados request
     const id = req.params.id
-    const livro = req.body
-
-    //Trata a funcionalidade de negocio
+    const pers = req.body
     try{ 
-        const livroAtualizado = await livroNegocio.atualizar(id, livro)
-        //Gera o response adequadamente  
-        res.json(livroAtualizado)
+        const persAtualizado = await persNegocio.atualizar(id, pers)
+        res.json(persAtualizado)
     } catch (err) {
         if (err.status) {
             res.status(err.status).json(err)
@@ -65,13 +53,10 @@ async function atualizar(req, res) {
 }
 
 async function deletar(req, res) {    
-    //Obtem os dados request
     const id = req.params.id
     try{ 
-        //Trata a funcionalidade de negocio
-        const livro = await livroNegocio.deletar(id)
-        //Gera o response adequadamente  
-        res.json(livro)
+        const pers = await persNegocio.deletar(id)
+        res.json(pers)
     } catch(err) {
         if(err.status) {
             res.status(err.status).json(err)
